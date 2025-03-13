@@ -1,26 +1,42 @@
 import mysql.connector
 import pandas as pd
+import psycopg2
 import numpy as np
 
 # Step 1: Connect to MySQL Database
 def connect_to_database(host, user, password, database):
     """Establish a connection to the MySQL database."""
-    print("Connecting to the database...")
     connection = mysql.connector.connect(
         host=host,
         user=user,
         password=password,
         database=database
     )
-    print("Database connection established.")
+    print("Connect to MySQL the database...")
     return connection
 
-# Step 2: Fetch data into a DataFrame
-def fetch_data_to_dataframe(connection, query):
-    """Fetch data from the database and return it as a DataFrame."""
-    print("Fetching data using query:\n")
+def connect_to_postgresql(host, user, password, database):
+    """Establish a connection to the PostgreSQL database."""
+    connection = psycopg2.connect(
+        host=host,
+        user=user,
+        password=password,
+        database=database
+    )
+    print("Connect to PostgreSQL database")
+    return connection
+
+
+def fetch_mysql_data(connection, query):
+    """Fetch data from MySQL specifically for Insentive_given_saleorder."""
     df = pd.read_sql(query, connection)
-    print("Data fetched successfully with %d records.", len(df))
+    print(f"Data fetched successfully from MySQL with {len(df)} records.")
+    return df
+
+def fetch_postgresql_data(pgconnection, query):
+    """Fetch data from PostgreSQL."""
+    df = pd.read_sql(query, pgconnection)
+    print(f"Data fetched successfully from PostgreSQL with {len(df)} records.")
     return df
 
 # Step 3: Process DataFrame (if needed)
@@ -51,10 +67,10 @@ def get_account_move_query():
         create_date,
         einvoice_status 
     FROM 
-        weekly.account_move 
+        account_move 
     WHERE 
         state = 'posted' 
-        AND payment_state = 'paid' AND invoice_origin LIKE "S%";
+        AND payment_state = 'paid' AND invoice_origin LIKE 'S%';
     """
 
 def get_sale_order_query():
@@ -70,11 +86,10 @@ def get_sale_order_query():
         create_date AS sale_order_date,
         pre_salesman_user_id
     FROM 
-        weekly.sale_order where name like "S%";
+        sale_order where name like 'S%';
     """
 
 def get_salesperson_query(order_ids):
-    print(order_ids,"order_ids")
     """Return the SQL query for fetching salesperson data based on the order_ids."""
     order_ids_str = ', '.join(map(str, order_ids))  # Convert list to a comma-separated string
     return f"""
@@ -82,7 +97,7 @@ def get_salesperson_query(order_ids):
         order_id,
         salesperson_id 
     FROM 
-        weekly.sale_gamification_data 
+        sale_gamification_data 
     WHERE 
         order_id IN ({order_ids_str});
     """
@@ -96,12 +111,10 @@ def inner_join_dataframes(df_sale_order, df_account_move):
     return merged_df
 
 
-def get_salesperson_names(connection, salesperson_ids):
+def get_salesperson_names(pgconnection, salesperson_ids):
     """Get the names of salespersons based on their salesperson IDs."""
     if not salesperson_ids:
         return {}
-
-    print("Fetching salesperson names for IDs")
 
     # Remove NaN or invalid values from salesperson_ids
     valid_salesperson_ids = [sid for sid in salesperson_ids if pd.notna(sid)]
@@ -114,10 +127,10 @@ def get_salesperson_names(connection, salesperson_ids):
     ids_str = ', '.join(map(str, valid_salesperson_ids))
     partner_id_query = f"""
     SELECT id, partner_id 
-    FROM weekly.res_users 
+    FROM res_users 
     WHERE id IN ({ids_str});
     """
-    partner_id_df = fetch_data_to_dataframe(connection, partner_id_query)
+    partner_id_df = fetch_postgresql_data(pgconnection, partner_id_query)
 
     if partner_id_df.empty:
         print("No partner_ids found for given salesperson_ids.")
@@ -135,10 +148,10 @@ def get_salesperson_names(connection, salesperson_ids):
     partner_ids_str = ', '.join(map(str, partner_ids))
     name_query = f"""
     SELECT id, name 
-    FROM weekly.res_partner 
+    FROM res_partner 
     WHERE id IN ({partner_ids_str});
     """
-    name_df = fetch_data_to_dataframe(connection, name_query)
+    name_df = fetch_postgresql_data(pgconnection, name_query)
 
     # Create a mapping of partner_id to name
     name_map = dict(zip(name_df['id'], name_df['name']))
@@ -148,19 +161,16 @@ def get_salesperson_names(connection, salesperson_ids):
     for salesperson_id, partner_id in partner_id_map.items():
         salesperson_name_map[salesperson_id] = name_map.get(partner_id, None)
 
-    print("Salesperson names fetched successfully.")
     return salesperson_name_map
 
 
 # Update the fetch_salesperson_data function to use batch fetching
-def fetch_salesperson_data(connection, merged_df):
+def fetch_salesperson_data(pgconnection, merged_df):
     """Fetch salesperson data for the given merged DataFrame and get their names."""
     order_ids = merged_df['so_id'].unique()  # Get unique order IDs
     query = get_salesperson_query(order_ids)
-    salesperson_df = fetch_data_to_dataframe(connection, query)
+    salesperson_df = fetch_postgresql_data(pgconnection, query)
     
-    print("Fetched salesperson data. Records:", len(salesperson_df))
-
     # Initialize salesperson dictionary
     salesperson_dict = {order_id: {'salesperson1': None, 'salesperson2': None} for order_id in order_ids}
     for _, row in salesperson_df.iterrows():
@@ -176,7 +186,7 @@ def fetch_salesperson_data(connection, merged_df):
 
     # Fetch names for all unique salesperson IDs
     unique_salesperson_ids = {salesperson_id for salespersons in salesperson_dict.values() for salesperson_id in salespersons.values() if salesperson_id}
-    salesperson_names = get_salesperson_names(connection, unique_salesperson_ids)
+    salesperson_names = get_salesperson_names(pgconnection, unique_salesperson_ids)
 
     # Create a DataFrame from the salesperson IDs and fetch names
     salesperson_list = []
@@ -195,10 +205,9 @@ def fetch_salesperson_data(connection, merged_df):
 
 def remove_existing_payments(connection, result_df):
     """Remove rows from result_df where payment_reference exists in the Insentive_given_saleorder."""
-    print("Removing rows with existing payment_reference...")
     # Step 1: Fetch payment_ref from the Insentive_given_saleorder
     payment_ref_query = "SELECT payment_ref FROM weekly.Insentive_given_saleorder;"
-    payment_ref_df = fetch_data_to_dataframe(connection, payment_ref_query)
+    payment_ref_df = fetch_mysql_data(connection, payment_ref_query)
     
     # Step 2: Convert payment_ref DataFrame to a set for faster lookup
     existing_payment_refs = set(payment_ref_df['payment_ref'].dropna())  # Using dropna to avoid None values
@@ -218,7 +227,7 @@ def add_cost_and_final_amount(connection, result_df):
 
     # Step 1: Fetch sale_orders from Insentive_given_saleorder table
     incentive_query = "SELECT saleorder FROM weekly.Insentive_given_saleorder;"
-    incentive_df = fetch_data_to_dataframe(connection, incentive_query)
+    incentive_df = fetch_mysql_data(connection, incentive_query)
     incentive_sale_orders = set(incentive_df['saleorder'].dropna())
 
     # Step 2: Calculate 'cost' initially for all rows
@@ -247,7 +256,7 @@ def add_cost_and_final_amount(connection, result_df):
     print("Columns added successfully.")
     return result_df
 
-def get_presalesperson_names(connection, presalesperson_ids):
+def get_presalesperson_names(pgconnection, presalesperson_ids):
     """Fetch presalesperson names based on their user IDs."""
     if isinstance(presalesperson_ids, pd.Series):
         presalesperson_ids = presalesperson_ids.dropna().unique()  # Convert to a unique array
@@ -257,17 +266,14 @@ def get_presalesperson_names(connection, presalesperson_ids):
     if len(presalesperson_ids) == 0:  # Explicitly check for an empty list
         print("No valid presalesperson IDs available.")
         return {}
-
-    print("Fetching presalesperson names for IDs:", presalesperson_ids)
-
     # Step 1: Get partner_ids from res_users using the presalesperson_ids
     ids_str = ', '.join(map(str, presalesperson_ids))
     partner_id_query = f"""
     SELECT id, partner_id 
-    FROM weekly.res_users 
+    FROM res_users 
     WHERE id IN ({ids_str});
     """
-    partner_id_df = fetch_data_to_dataframe(connection, partner_id_query)
+    partner_id_df = fetch_postgresql_data(pgconnection, partner_id_query)
 
     if partner_id_df.empty:
         print("No partner_ids found for given presalesperson_ids.")
@@ -285,22 +291,21 @@ def get_presalesperson_names(connection, presalesperson_ids):
     partner_ids_str = ', '.join(map(str, partner_ids))
     name_query = f"""
     SELECT id, name 
-    FROM weekly.res_partner 
+    FROM res_partner 
     WHERE id IN ({partner_ids_str});
     """
-    name_df = fetch_data_to_dataframe(connection, name_query)
+    name_df = fetch_postgresql_data(pgconnection, name_query)
 
     # Create a mapping of partner_id to name
     name_map = dict(zip(name_df['id'], name_df['name']))
 
     # Create a final mapping of presalesperson_id to name
     presalesperson_name_map = {pid: name_map.get(partner_id_map[pid], None) for pid in presalesperson_ids}
-
     print("Presalesperson names fetched successfully.")
     return presalesperson_name_map
 
 
-def add_presalesperson_name(connection, result_df):
+def add_presalesperson_name(pgconnection, result_df):
     """Add presalesperson names to the result DataFrame."""
     print("Adding presalesperson names...")
 
@@ -308,7 +313,7 @@ def add_presalesperson_name(connection, result_df):
     presalesperson_ids = result_df['pre_salesman_user_id'].dropna().unique()
 
     # Fetch presalesperson names
-    presalesperson_names = get_presalesperson_names(connection, presalesperson_ids)
+    presalesperson_names = get_presalesperson_names(pgconnection, presalesperson_ids)
 
     # Map presalesperson names to the DataFrame
     result_df['presalesperson_name'] = result_df['pre_salesman_user_id'].map(presalesperson_names)
@@ -331,48 +336,44 @@ def calculate_disputes(result_df):
     return unique_payments, duplicate_payments
 
 # Step 7: Main function to execute the workflow
-def Insentive_Final_dump():
-    # Database connection parameters
-    # host = 'localhost'
-    # user = 'root'
-    # password = 'root'
-    # database = 'weekly'
+def Insentive_Final_dump():\
 
+    # MYSQL connection (For all other tables)
     host = '103.180.186.207'
     user = 'qrt'
     password = 't7%><rC)MC)8rdsYCj<E'
     database='weekly'
 
-    # host = '192.168.0.112'
-    # user = 'py'
-    # password = 'Python@2022'
-    # database = 'weekly'
-    
+
+    # PostgreSQL connection (For all other tables)
+    postgres_host = '103.180.186.233'
+    postgres_user = 'odoo'
+    postgres_password = 'Odoo#Egn!ol@321'
+    postgres_database = 'egniol_production'
+ 
     
     # Connect to the database
     connection = connect_to_database(host, user, password, database)
+    postgres_connection = connect_to_postgresql(postgres_host, postgres_user, postgres_password, postgres_database)
     
     try:
         # Fetch and process data for account_move
         account_move_query = get_account_move_query()
-        df_account_move = fetch_data_to_dataframe(connection, account_move_query)
+        df_account_move = fetch_postgresql_data(postgres_connection, account_move_query)
         df_account_move_processed = process_dataframe(df_account_move)
 
         # Fetch and process data for sale_order
         sale_order_query = get_sale_order_query()
-        print(sale_order_query , "sale_order_query")
-        df_sale_order = fetch_data_to_dataframe(connection, sale_order_query)
-        print(df_sale_order ,"df_sale_order")
+        df_sale_order = fetch_postgresql_data(postgres_connection, sale_order_query)
         df_sale_order_processed = df_sale_order
-        print(df_sale_order_processed,"df_sale_order_processed")
 
         # Perform inner join
         merged_df = inner_join_dataframes(df_sale_order_processed, df_account_move_processed)
 
         # Fetch salesperson data based on the merged DataFrame
-        result_df = fetch_salesperson_data(connection, merged_df)
+        result_df = fetch_salesperson_data(postgres_connection, merged_df)
 
-        result_df = add_presalesperson_name(connection, result_df)
+        result_df = add_presalesperson_name(postgres_connection, result_df)
         
         # Remove rows with existing payment_reference
         result_df = remove_existing_payments(connection, result_df)
