@@ -15,20 +15,6 @@ pg_params = {
     "port": "5432",
 }
 
-# mysql_params = {
-#     "host": "localhost",
-#     "user": "root",
-#     "password": "root",
-#     "database": "weekly",
-# }
-
-# mysql_params = {
-#    "host" : '103.180.186.249',
-#     "user" : 'qrt',
-#     "password" : 'Qrt#923@4',
-#     "database" : 'weekly'
-# }
-
 mysql_params = {
     'host': '103.180.186.207',   # Change to your MySQL host
     'user': 'qrt',        # Change to your MySQL username
@@ -204,5 +190,15 @@ if __name__ == "__main__":
                    "sale_person_collection_report","activity_type_config_project_project_rel","activity_type_config","project_project",
                    "account_analytic_line","hr_employee","hr_department","crm_stage","crm_lead","project_task","account_journal","account_tax",
                    "account_tax_sale_order_line_rel","res_country_state","employee_branch"]  # List of tables to transfer
+
+
+    
+#     table_names = ["account_move",
+# "sale_order",
+# "res_partner",
+# "res_users",
+# "sale_gamification_data"]
+
     print(f"Starting data transfer for tables: {table_names}")
     main(table_names)
+
