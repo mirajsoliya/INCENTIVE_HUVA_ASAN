@@ -336,7 +336,7 @@ def calculate_disputes(result_df):
     return unique_payments, duplicate_payments
 
 # Step 7: Main function to execute the workflow
-def Insentive_Final_dump():\
+def Insentive_Final_dump():
 
     # MYSQL connection (For all other tables)
     host = '103.180.186.207'

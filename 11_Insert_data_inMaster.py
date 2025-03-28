@@ -69,7 +69,7 @@ try:
                     row['cost'],
                     row['final_amount'],
                     row['source'],
-                    '75th week : 08-03-2025'
+                    '77th week : 22-03-2025'
                 )
 
                 # Execute the insert query

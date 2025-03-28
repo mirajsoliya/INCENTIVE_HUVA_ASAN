@@ -106,3 +106,19 @@
 2025-03-01 16:28:53,433 - INFO: Completed batch 1
 2025-03-01 16:28:53,483 - INFO: Successfully inserted total 804 records into Insentive_given_saleorder table
 2025-03-01 16:28:53,497 - INFO: Database connection closed
+2025-03-15 16:27:53,136 - INFO: Processing file: incentive_dump_Final.csv
+2025-03-15 16:27:53,366 - INFO: Successfully connected to MySQL database
+2025-03-15 16:27:53,387 - INFO: CSV Columns: ['Unnamed: 0', 'so_id', 'sale_order', 'sale_order_untax', 'sale_order_amount_tax', 'sale_order_amount_total', 'sale_order_margin', 'sale_order_date', 'pre_salesman_user_id', 'p_id', 'name', 'state', 'payment_reference', 'payment_state', 'invoice_partner_display_name', 'invoice_origin', 'invoice_date', 'date', 'payment_untax', 'payment_amount_tax', 'payment_total', 'create_date', 'einvoice_status', 'salesperson1', 'salesperson2', 'salesperson1_name', 'salesperson2_name', 'presalesperson_name', 'cost', 'final_amount', 'source']
+2025-03-15 16:27:53,394 - INFO: Loaded 602 records from incentive_dump_Final.csv
+2025-03-15 16:27:53,476 - INFO: Inserting batch 1 with 602 records
+2025-03-15 16:28:16,449 - INFO: Completed batch 1
+2025-03-15 16:28:16,528 - INFO: Successfully inserted total 602 records into Insentive_given_saleorder table
+2025-03-15 16:28:16,528 - INFO: Database connection closed
+2025-03-22 16:40:16,546 - INFO: Processing file: incentive_dump_Final.csv
+2025-03-22 16:40:16,597 - INFO: Successfully connected to MySQL database
+2025-03-22 16:40:16,615 - INFO: CSV Columns: ['Unnamed: 0', 'so_id', 'sale_order', 'sale_order_untax', 'sale_order_amount_tax', 'sale_order_amount_total', 'sale_order_margin', 'sale_order_date', 'pre_salesman_user_id', 'p_id', 'name', 'state', 'payment_reference', 'payment_state', 'invoice_partner_display_name', 'invoice_origin', 'invoice_date', 'date', 'payment_untax', 'payment_amount_tax', 'payment_total', 'create_date', 'einvoice_status', 'salesperson1', 'salesperson2', 'salesperson1_name', 'salesperson2_name', 'presalesperson_name', 'cost', 'final_amount', 'source']
+2025-03-22 16:40:16,623 - INFO: Loaded 701 records from incentive_dump_Final.csv
+2025-03-22 16:40:16,645 - INFO: Inserting batch 1 with 701 records
+2025-03-22 16:40:20,740 - INFO: Completed batch 1
+2025-03-22 16:40:20,797 - INFO: Successfully inserted total 701 records into Insentive_given_saleorder table
+2025-03-22 16:40:20,797 - INFO: Database connection closed
