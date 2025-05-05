@@ -1,6 +1,6 @@
 import pandas as pd
 
-def split_and_save_reports(bdm_report_file, PSA_report_file, bdm_qualified_threshold=100000, bdm_cases_threshold=3, PSA_qualified_threshold=25000, PSA_cases_threshold=4):
+def split_and_save_reports(bdm_report_file, PSA_report_file, bdm_qualified_threshold=150000, bdm_cases_threshold=1, PSA_qualified_threshold=25000, PSA_cases_threshold=4):
 # def split_and_save_reports(bdm_report_file, bdm_qualified_threshold=100000, bdm_cases_threshold=3):
     # Load the final incentive reports
     bdm_report = pd.read_csv(bdm_report_file)

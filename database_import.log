@@ -122,3 +122,51 @@
 2025-03-22 16:40:20,740 - INFO: Completed batch 1
 2025-03-22 16:40:20,797 - INFO: Successfully inserted total 701 records into Insentive_given_saleorder table
 2025-03-22 16:40:20,797 - INFO: Database connection closed
+2025-03-29 16:37:33,347 - INFO: Processing file: incentive_dump_Final.csv
+2025-03-29 16:37:33,416 - INFO: Successfully connected to MySQL database
+2025-03-29 16:37:33,427 - INFO: CSV Columns: ['Unnamed: 0', 'so_id', 'sale_order', 'sale_order_untax', 'sale_order_amount_tax', 'sale_order_amount_total', 'sale_order_margin', 'sale_order_date', 'pre_salesman_user_id', 'p_id', 'name', 'state', 'payment_reference', 'payment_state', 'invoice_partner_display_name', 'invoice_origin', 'invoice_date', 'date', 'payment_untax', 'payment_amount_tax', 'payment_total', 'create_date', 'einvoice_status', 'salesperson1', 'salesperson2', 'salesperson1_name', 'salesperson2_name', 'presalesperson_name', 'cost', 'final_amount', 'source']
+2025-03-29 16:37:33,432 - INFO: Loaded 780 records from incentive_dump_Final.csv
+2025-03-29 16:37:33,482 - INFO: Inserting batch 1 with 780 records
+2025-03-29 16:37:37,986 - INFO: Completed batch 1
+2025-03-29 16:37:38,022 - INFO: Successfully inserted total 780 records into Insentive_given_saleorder table
+2025-03-29 16:37:38,022 - INFO: Database connection closed
+2025-04-05 16:17:17,192 - INFO: Processing file: incentive_dump_Final.csv
+2025-04-05 16:17:17,297 - INFO: Successfully connected to MySQL database
+2025-04-05 16:17:17,300 - INFO: CSV Columns: ['Unnamed: 0', 'so_id', 'sale_order', 'sale_order_untax', 'sale_order_amount_tax', 'sale_order_amount_total', 'sale_order_margin', 'sale_order_date', 'pre_salesman_user_id', 'p_id', 'name', 'state', 'payment_reference', 'payment_state', 'invoice_partner_display_name', 'invoice_origin', 'invoice_date', 'date', 'payment_untax', 'payment_amount_tax', 'payment_total', 'create_date', 'einvoice_status', 'salesperson1', 'salesperson2', 'salesperson1_name', 'salesperson2_name', 'presalesperson_name', 'cost', 'final_amount', 'source']
+2025-04-05 16:17:17,300 - INFO: Loaded 588 records from incentive_dump_Final.csv
+2025-04-05 16:17:17,361 - INFO: Inserting batch 1 with 588 records
+2025-04-05 16:17:20,580 - INFO: Completed batch 1
+2025-04-05 16:17:20,610 - INFO: Successfully inserted total 588 records into Insentive_given_saleorder table
+2025-04-05 16:17:20,610 - INFO: Database connection closed
+2025-04-12 16:27:02,079 - INFO: Processing file: incentive_dump_Final.csv
+2025-04-12 16:27:02,261 - INFO: Successfully connected to MySQL database
+2025-04-12 16:27:02,284 - INFO: CSV Columns: ['Unnamed: 0', 'so_id', 'sale_order', 'sale_order_untax', 'sale_order_amount_tax', 'sale_order_amount_total', 'sale_order_margin', 'sale_order_date', 'pre_salesman_user_id', 'p_id', 'name', 'state', 'payment_reference', 'payment_state', 'invoice_partner_display_name', 'invoice_origin', 'invoice_date', 'date', 'payment_untax', 'payment_amount_tax', 'payment_total', 'create_date', 'einvoice_status', 'salesperson1', 'salesperson2', 'salesperson1_name', 'salesperson2_name', 'presalesperson_name', 'cost', 'final_amount', 'source']
+2025-04-12 16:27:02,293 - INFO: Loaded 623 records from incentive_dump_Final.csv
+2025-04-12 16:27:02,410 - INFO: Inserting batch 1 with 623 records
+2025-04-12 16:27:30,179 - INFO: Completed batch 1
+2025-04-12 16:27:32,001 - INFO: Successfully inserted total 623 records into Insentive_given_saleorder table
+2025-04-12 16:27:32,001 - INFO: Database connection closed
+2025-04-19 16:27:06,444 - INFO: Processing file: incentive_dump_Final.csv
+2025-04-19 16:27:06,466 - INFO: Successfully connected to MySQL database
+2025-04-19 16:27:06,473 - INFO: CSV Columns: ['Unnamed: 0', 'so_id', 'sale_order', 'sale_order_untax', 'sale_order_amount_tax', 'sale_order_amount_total', 'sale_order_margin', 'sale_order_date', 'pre_salesman_user_id', 'p_id', 'name', 'state', 'payment_reference', 'payment_state', 'invoice_partner_display_name', 'invoice_origin', 'invoice_date', 'date', 'payment_untax', 'payment_amount_tax', 'payment_total', 'create_date', 'einvoice_status', 'salesperson1', 'salesperson2', 'salesperson1_name', 'salesperson2_name', 'presalesperson_name', 'cost', 'final_amount', 'source']
+2025-04-19 16:27:06,476 - INFO: Loaded 560 records from incentive_dump_Final.csv
+2025-04-19 16:27:06,513 - INFO: Inserting batch 1 with 560 records
+2025-04-19 16:27:08,165 - INFO: Completed batch 1
+2025-04-19 16:27:08,195 - INFO: Successfully inserted total 560 records into Insentive_given_saleorder table
+2025-04-19 16:27:08,195 - INFO: Database connection closed
+2025-04-26 16:36:14,357 - INFO: Processing file: incentive_dump_Final.csv
+2025-04-26 16:36:14,432 - INFO: Successfully connected to MySQL database
+2025-04-26 16:36:14,438 - INFO: CSV Columns: ['Unnamed: 0', 'so_id', 'sale_order', 'sale_order_untax', 'sale_order_amount_tax', 'sale_order_amount_total', 'sale_order_margin', 'sale_order_date', 'pre_salesman_user_id', 'p_id', 'name', 'state', 'payment_reference', 'payment_state', 'invoice_partner_display_name', 'invoice_origin', 'invoice_date', 'date', 'payment_untax', 'payment_amount_tax', 'payment_total', 'create_date', 'einvoice_status', 'salesperson1', 'salesperson2', 'salesperson1_name', 'salesperson2_name', 'presalesperson_name', 'cost', 'final_amount', 'source']
+2025-04-26 16:36:14,442 - INFO: Loaded 560 records from incentive_dump_Final.csv
+2025-04-26 16:36:14,470 - INFO: Inserting batch 1 with 560 records
+2025-04-26 16:36:17,473 - INFO: Completed batch 1
+2025-04-26 16:36:17,487 - INFO: Successfully inserted total 560 records into Insentive_given_saleorder table
+2025-04-26 16:36:17,487 - INFO: Database connection closed
+2025-05-03 16:24:10,362 - INFO: Processing file: incentive_dump_Final.csv
+2025-05-03 16:24:10,439 - INFO: Successfully connected to MySQL database
+2025-05-03 16:24:10,455 - INFO: CSV Columns: ['Unnamed: 0', 'so_id', 'sale_order', 'sale_order_untax', 'sale_order_amount_tax', 'sale_order_amount_total', 'sale_order_margin', 'sale_order_date', 'pre_salesman_user_id', 'p_id', 'name', 'state', 'payment_reference', 'payment_state', 'invoice_partner_display_name', 'invoice_origin', 'invoice_date', 'date', 'payment_untax', 'payment_amount_tax', 'payment_total', 'create_date', 'einvoice_status', 'salesperson1', 'salesperson2', 'salesperson1_name', 'salesperson2_name', 'presalesperson_name', 'cost', 'final_amount', 'source']
+2025-05-03 16:24:10,461 - INFO: Loaded 579 records from incentive_dump_Final.csv
+2025-05-03 16:24:10,511 - INFO: Inserting batch 1 with 579 records
+2025-05-03 16:24:18,311 - INFO: Completed batch 1
+2025-05-03 16:24:18,343 - INFO: Successfully inserted total 579 records into Insentive_given_saleorder table
+2025-05-03 16:24:18,343 - INFO: Database connection closed

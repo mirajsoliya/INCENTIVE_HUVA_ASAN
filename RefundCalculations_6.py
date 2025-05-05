@@ -20,7 +20,7 @@ def create_db_connection():
 def get_refund_details(connection, bdm_name):
     with connection.cursor() as cursor:
         # Query to check if the BDM name exists in either bdm1 or bdm2
-        query = f"SELECT bdm1, bdm2, amountOfRefund FROM weekly.refundDetails WHERE (bdm1 = %s OR bdm2 = %s) and actualRefund = 'REFUND' AND counted IS NULL;"
+        query = f"SELECT bdm1, bdm2, amountOfRefund FROM weekly.refundDetails WHERE (bdm1 = %s OR bdm2 = %s) and actualRefund in ('REFUND' ,'CA COMMISSION') AND counted IS NULL;"
         cursor.execute(query, (bdm_name, bdm_name))
         return cursor.fetchall()
 
