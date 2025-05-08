@@ -108,9 +108,29 @@ def match_bdm_with_db(connection, df):
                 bdm_cases[salesperson1] = bdm_cases.get(salesperson1, 0) + 0.5
                 bdm_cases[salesperson2] = bdm_cases.get(salesperson2, 0) + 0.5
         
+        # for bdm, total_collection in {**bdm_total_collection, **psa_total_collection}.items():
+        #     print(f"{bdm} Final Collection: {total_collection}")  # Debugging line
+        #     incentive = total_collection * 0.05
+        #     role = bdm_roles.get(bdm, 'Unknown')
+        #     bdm_data.append({
+        #         'BDM Name': bdm,
+        #         'Role': role,
+        #         'Total Collection': total_collection,
+        #         'Incentive': incentive,
+        #         'Cases': bdm_cases.get(bdm, 0)
+        #     })
+
         for bdm, total_collection in {**bdm_total_collection, **psa_total_collection}.items():
             print(f"{bdm} Final Collection: {total_collection}")  # Debugging line
-            incentive = total_collection * 0.05
+
+            # Conditional incentive calculation
+            if total_collection >= 150000:
+                incentive = total_collection * 0.05
+            elif total_collection >= 100000:
+                incentive = total_collection * 0.03
+            else:
+                incentive = 0
+
             role = bdm_roles.get(bdm, 'Unknown')
             bdm_data.append({
                 'BDM Name': bdm,
