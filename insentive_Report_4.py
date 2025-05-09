@@ -129,7 +129,7 @@ def match_bdm_with_db(connection, df):
             elif total_collection >= 100000:
                 incentive = total_collection * 0.03
             else:
-                incentive = 0
+                incentive = total_collection * 0.03
 
             role = bdm_roles.get(bdm, 'Unknown')
             bdm_data.append({
