@@ -21,7 +21,7 @@ DESIRED_COLUMNS = [
     'payment_state', 'invoice_partner_display_name', 'invoice_origin', 
     'invoice_date', 'date', 'payment_untax', 'payment_amount_tax', 
     'payment_total', 'create_date', 'einvoice_status', 'salesperson1', 
-    'salesperson2', 'salesperson1_name', 'salesperson2_name', 
+    'salesperson2','salesperson3', 'salesperson1_name', 'salesperson2_name', 'salesperson3_name',
     'presalesperson_name', 'cost', 'final_amount', 'source', 'TL1', 'BM1', 'TL2'
 ]
 
@@ -84,11 +84,11 @@ def insert_data_from_csv(connection, csv_file):
         sale_order_margin, sale_order_date, pre_salesman_user_id, p_id, name, state, 
         payment_reference, payment_state, invoice_partner_display_name, invoice_origin, 
         invoice_date, date, payment_untax, payment_amount_tax, payment_total, create_date, 
-        einvoice_status, salesperson1, salesperson2, salesperson1_name, salesperson2_name, 
+        einvoice_status, salesperson1, salesperson2,salesperson3, salesperson1_name, salesperson2_name, salesperson3_name,
         presalesperson_name, cost, final_amount, source, TL1, BM1, TL2
     ) VALUES (
         %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 
-        %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
+        %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s,%s
     );
     """
 

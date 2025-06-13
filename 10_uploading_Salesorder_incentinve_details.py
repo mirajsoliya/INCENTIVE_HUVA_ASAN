@@ -144,7 +144,7 @@ def insert_dataframe_to_database(connection, df, table_name='Insentive_given_sal
         # Prepare insert query
         insert_query = f"""
             INSERT IGNORE INTO {table_name} (`saleorder`, `payment_ref`, `tag`)
-            VALUES (%s, %s, "5th week 25-26")
+            VALUES (%s, %s, "9th week 25-26")
         """
         
         # Insert data in batches

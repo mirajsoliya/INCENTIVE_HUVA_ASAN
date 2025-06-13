@@ -190,7 +190,20 @@ def process_incentive_report(df, deduct_list, role, connection):
             print(f"No refund details found for BDM: {bdm_name}")
 
         # Calculate the Incentive
-        incentive = (df.at[index, 'Total Collection']) * (0.05 if df.at[index, 'Total Collection'] >= 150000 else 0.03)
+        # incentive = (df.at[index, 'Total Collection']) * (0.05 if df.at[index, 'Total Collection'] >= 150000 else 0.03)
+        # df.at[index, 'Incentive'] = round(incentive, 2)
+        total = df.at[index, 'Total Collection']
+
+        if total >= 150000:
+            rate = 0.05
+        elif total >= 100000:
+            rate = 0.03
+        elif total >= 75000:
+            rate = 0.02
+        else:
+            rate = 0.02  # 0.02%
+
+        incentive = total * rate
         df.at[index, 'Incentive'] = round(incentive, 2)
 
     return df

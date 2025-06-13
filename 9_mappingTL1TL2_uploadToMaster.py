@@ -35,7 +35,8 @@ final_columns = [
     'sale_order_amount_total', 'sale_order_margin', 'sale_order_date', 'p_id', 'name', 'state',
     'payment_reference', 'payment_state', 'invoice_partner_display_name', 'invoice_origin',
     'invoice_date', 'date', 'payment_untax', 'payment_amount_tax', 'payment_total', 'create_date',
-    'einvoice_status', 'salesperson1', 'salesperson2', 'salesperson1_name', 'salesperson2_name', 'presalesperson_name',
+    'einvoice_status', 'salesperson1', 'salesperson2','salesperson3', 
+    'salesperson1_name', 'salesperson2_name','salesperson3_name' ,'presalesperson_name',
     'cost', 'final_amount', 'source', 'TL1', 'BM1', 'TL2', 'BM2'
 ]
 
