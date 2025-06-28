@@ -348,7 +348,7 @@
 #     # PostgreSQL connection (For all other tables)
 #     postgres_host = '103.180.186.233'
 #     postgres_user = 'odoo'
-#     postgres_password = 'Odoo#Egn!ol@321'
+#     postgres_password = 'TRQ@#$%QRT@#&*()!TRQ'
 #     postgres_database = 'egniol_production'
  
     
@@ -755,7 +755,7 @@ def Insentive_Final_dump():
     # PostgreSQL connection (For all other tables)
     postgres_host = '103.180.186.233'
     postgres_user = 'odoo'
-    postgres_password = 'Odoo#Egn!ol@321'
+    postgres_password = 'TRQ@#$%QRT@#&*()!TRQ'
     postgres_database = 'egniol_production'
  
     

@@ -61,7 +61,7 @@ import pandas as pd
 df = pd.read_csv('../team_update_report.csv')
 
 # Define the salesperson name to search
-salesperson_name = "TUSHAR SULE"
+salesperson_name = "RAJAT PANDEY"
 
 # Filter for rows where salesperson1_name, salesperson2_name, or salesperson3_name matches the specified name
 filtered_df = df[

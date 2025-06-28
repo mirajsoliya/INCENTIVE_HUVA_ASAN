@@ -10,7 +10,7 @@ import math
 pg_params = {
     "dbname": "egniol_production",
     "user": "odoo",
-    "password": "Odoo#Egn!ol@321",
+    "password": "TRQ@#$%QRT@#&*()!TRQ",
     "host": "103.180.186.233",
     "port": "5432",
 }
